@@ -53,17 +53,17 @@ class AlbumControllerTest extends AbstractHttpControllerTestCase
 
 	public function testAddActionRedirectsAfterValidPost()
 	{
-	    // $albumTableMock = $this->getMockBuilder('Album\Model\AlbumTable')
-	    //                         ->disableOriginalConstructor()
-	    //                         ->getMock();
+	    $albumTableMock = $this->getMockBuilder('Album\Model\AlbumTable')
+	                            ->disableOriginalConstructor()
+	                            ->getMock();
 
-	    // $albumTableMock->expects($this->once())
-	    //                 ->method('saveAlbum')
-	    //                 ->will($this->returnValue(null));
+	    $albumTableMock->expects($this->once())
+	                    ->method('saveAlbum')
+	                    ->will($this->returnValue(null));
 
-	    // $serviceManager = $this->getApplicationServiceLocator();
-	    // $serviceManager->setAllowOverride(true);
-	    // $serviceManager->setService('Album\Model\AlbumTable', $albumTableMock);
+	    $serviceManager = $this->getApplicationServiceLocator();
+	    $serviceManager->setAllowOverride(true);
+	    $serviceManager->setService('Album\Model\AlbumTable', $albumTableMock);
 
 	    $postData = array(
 	    	'id' => '',
