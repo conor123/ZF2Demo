@@ -66,12 +66,13 @@ class AlbumControllerTest extends AbstractHttpControllerTestCase
 	    // $serviceManager->setService('Album\Model\AlbumTable', $albumTableMock);
 
 	    $postData = array(
+	    	'id' => '',
 	        'title'  => 'Led Zeppelin III',
 	        'artist' => 'Led Zeppelin',
 	    );
 	    $this->dispatch('/album/add', 'POST', $postData);
-	    $this->assertResponseStatusCode(200);
+	    $this->assertResponseStatusCode(302);
 
-	    //$this->assertRedirectTo('/album');
+	    $this->assertRedirectTo('/album');
 	}
 }
