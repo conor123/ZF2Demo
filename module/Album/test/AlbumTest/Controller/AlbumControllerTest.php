@@ -18,6 +18,30 @@ class AlbumControllerTest extends AbstractHttpControllerTestCase
 
     public function testIndexActionCanBeAccessed()
 	{
+	    // Regular Test
+
+	    // $this->dispatch('/album');
+	    // $this->assertResponseStatusCode(200);
+
+	    // $this->assertModuleName('Album');
+	    // $this->assertControllerName('Album\Controller\Album');
+	    // $this->assertControllerClass('AlbumController');
+	    // $this->assertMatchedRouteName('album');
+
+		// Mocks
+
+	    $albumTableMock = $this->getMockBuilder('Album\Model\AlbumTable')
+                            ->disableOriginalConstructor()
+                            ->getMock();
+
+	    $albumTableMock->expects($this->once())
+	                    ->method('fetchAll')
+	                    ->will($this->returnValue(array()));
+
+	    $serviceManager = $this->getApplicationServiceLocator();
+	    $serviceManager->setAllowOverride(true);
+	    $serviceManager->setService('Album\Model\AlbumTable', $albumTableMock);
+
 	    $this->dispatch('/album');
 	    $this->assertResponseStatusCode(200);
 
@@ -25,5 +49,29 @@ class AlbumControllerTest extends AbstractHttpControllerTestCase
 	    $this->assertControllerName('Album\Controller\Album');
 	    $this->assertControllerClass('AlbumController');
 	    $this->assertMatchedRouteName('album');
+	}
+
+	public function testAddActionRedirectsAfterValidPost()
+	{
+	    // $albumTableMock = $this->getMockBuilder('Album\Model\AlbumTable')
+	    //                         ->disableOriginalConstructor()
+	    //                         ->getMock();
+
+	    // $albumTableMock->expects($this->once())
+	    //                 ->method('saveAlbum')
+	    //                 ->will($this->returnValue(null));
+
+	    // $serviceManager = $this->getApplicationServiceLocator();
+	    // $serviceManager->setAllowOverride(true);
+	    // $serviceManager->setService('Album\Model\AlbumTable', $albumTableMock);
+
+	    $postData = array(
+	        'title'  => 'Led Zeppelin III',
+	        'artist' => 'Led Zeppelin',
+	    );
+	    $this->dispatch('/album/add', 'POST', $postData);
+	    $this->assertResponseStatusCode(200);
+
+	    //$this->assertRedirectTo('/album');
 	}
 }
