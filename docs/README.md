@@ -7,3 +7,6 @@ php -S localhost:8888 -t public public/index.php
 http://localhost:8888/album
 
 # Modules
+
+# PHP Unit Tests
+# navigate to the zf2-tutorial/module/Album/test/ directory, and run phpunit
