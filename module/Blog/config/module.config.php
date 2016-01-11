@@ -1,21 +1,34 @@
 <?php
 // Filename: /module/Blog/config/module.config.php
 return array(
+	'db' => array(
+         'driver'         => 'Pdo',
+         'username'       => 'root',  //edit this
+         'password'       => '',  //edit this
+         'dsn'            => 'mysql:dbname=zf2tutorial;host=localhost',
+         'driver_options' => array(
+             \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+         )
+    ),
 	'service_manager' => array(
-	     'invokables' => array(
-	         'Blog\Service\PostServiceInterface' => 'Blog\Service\PostService'
-	     )
-	 ),
+	     'factories' => array(
+	         'Blog\Service\PostServiceInterface' => 'Blog\Factory\PostServiceFactory',
+	         'Blog\Mapper\PostMapperInterface'   => 'Blog\Factory\ZendDbSqlMapperFactory',
+	         'Zend\Db\Adapter\Adapter'           => 'Zend\Db\Adapter\AdapterServiceFactory'
 
-		'view_manager' => array(
-	     'template_path_stack' => array(
-	         __DIR__ . '/../view',
-	     ),
-	 ),
-		'controllers' => array(
-	    'factories' => array(
-	        'Blog\Controller\List' => 'Blog\Factory\ListControllerFactory'
-	    )
+
+	     )
+	),
+	'view_manager' => array(
+		'template_path_stack' => array(
+		 __DIR__ . '/../view',
+		),
+	),
+	'controllers' => array(
+		'factories' => array(
+		'Blog\Controller\List' => 'Blog\Factory\ListControllerFactory',
+		'Zend\Db\Adapter\Adapter'           => 'Zend\Db\Adapter\AdapterServiceFactory'
+		)
 	),
 	// This lines opens the configuration for the RouteManager
 	'router' => array(
