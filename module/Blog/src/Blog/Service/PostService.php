@@ -33,6 +33,12 @@ class PostService implements PostServiceInterface
    */
   public function findPost($id)
   {
-    return $this->postMapper->find($id);
+    $post =  $this->postMapper->find($id);
+
+    if (!$post) {
+      throw new InvalidArgumentException("No Post Found!");
+    }
+
+    return $post;
   }
 }

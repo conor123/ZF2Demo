@@ -51,7 +51,7 @@ class ZendDbSqlMapper implements PostMapperInterface
     */
    public function find($id)
    {
-      $sql = new Sql($this->adapter);
+      $sql = new Sql($this->dbAdapter);
       $select = $sql->select('posts');
       $select->where(array('id = ?' => $id));
 
