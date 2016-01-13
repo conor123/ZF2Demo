@@ -47,4 +47,34 @@ class WriteController extends AbstractActionController
             'form' => $this->postForm
         ));
     }
+
+    public function editAction()
+    {
+        //
+        $request = $this->getRequest();
+        $post = $this->postService->findPost($this->params('id'));
+
+        $this->postForm->bind($post);
+
+        if ($request->isPost()) {
+            # code...
+            $this->postForm->setData($request->getPost());
+
+            if ($this->postForm->isValid()) {
+                # code...
+                try {
+                    $this->postService->savePost($post);
+
+                    return $this->redirect()->toRoute('blog');
+                    
+                } catch (Exception $e) {
+                    die($e->getMessage());
+                }
+            }
+        }
+        return new ViewModel(array(
+            'form' => $this->postForm
+        ));
+
+    }
 }

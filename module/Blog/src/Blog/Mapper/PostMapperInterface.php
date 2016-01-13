@@ -27,4 +27,12 @@ interface PostMapperInterface
 	*/
 	public function save(PostInterface $postObject);
 
+	/**
+      * @param PostInterface $postObject
+      *
+      * @return bool
+      * @throws \Exception
+      */
+    public function delete(PostInterface $postObject);
+
 }

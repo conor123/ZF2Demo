@@ -12,23 +12,30 @@ interface PostServiceInterface
     *
     * @return array|PostInterface[]
     */
-   public function findAllPosts();
+    public function findAllPosts();
 
-   /**
+    /**
     * Should return a single blog post
     *
     * @param  int $id Identifier of the Post that should be returned
     * @return PostInterface
     */
-   public function findPost($id);
+    public function findPost($id);
 
-  /**
+    /**
       * Should save a given implementation of the PostInterface and return it. If it is an existing Post the Post
       * should be updated, if it's a new Post it should be created.
       *
       * @param  PostInterface $blog
       * @return PostInterface
       */
-     public function savePost(PostInterface $blog);
+    public function savePost(PostInterface $blog);
+
+    /**
+    * Delete
+    * @param PostInterface $blog
+    * @return bool
+    */
+    public function deletePost(PostInterface $blog);
 
 }

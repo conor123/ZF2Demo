@@ -11,6 +11,7 @@ use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\Insert;
 use Zend\Db\Sql\Update;
+use Zend\Db\Sql\Delete;
 use Zend\Stdlib\Hydrator\HydratorInterface;
 
 class ZendDbSqlMapper implements PostMapperInterface
@@ -99,8 +100,8 @@ class ZendDbSqlMapper implements PostMapperInterface
    * @return PostInterface
    * @throws \Exception
    */
-   public function save(PostInterface $postObject)
-   {
+    public function save(PostInterface $postObject)
+    {
         //
         $postData = $this->hydrator->extract($postObject);
         unset($postData['id']);
@@ -131,5 +132,21 @@ class ZendDbSqlMapper implements PostMapperInterface
             return $postObject;
         }
         throw new \Exception("Database eror");
-   }
+    }
+
+    /**
+    * {@inheritDoc}
+    */
+    public function delete(PostInterface $postObject)
+    {
+        //
+        $action = new Delete('posts');
+        $action->where(array('id = ?' => $postObject->getId()));
+
+        $sql = new Sql($this->dbAdapter);
+        $stmt   = $sql->prepareStatementForSqlObject($action);
+        $result = $stmt->execute();
+        return (bool)$result->getAffectedRows();
+
+    }
 }
