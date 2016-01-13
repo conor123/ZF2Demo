@@ -2,13 +2,13 @@
 // Filename: /module/Blog/config/module.config.php
 return array(
 	'db' => array(
-         'driver'         => 'Pdo',
-         'username'       => 'root',  //edit this
-         'password'       => '',  //edit this
-         'dsn'            => 'mysql:dbname=zf2tutorial;host=localhost',
-         'driver_options' => array(
-             \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-         )
+        'driver'         => 'Pdo',
+        'username'       => 'root',  //edit this
+        'password'       => '',  //edit this
+        'dsn'            => 'mysql:dbname=zf2tutorial;host=localhost',
+        'driver_options' => array(
+            \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+        )
     ),
 	'service_manager' => array(
 	     'factories' => array(
@@ -27,6 +27,7 @@ return array(
 	'controllers' => array(
 		'factories' => array(
 		'Blog\Controller\List' => 'Blog\Factory\ListControllerFactory',
+		'Blog\Controller\Write' => 'Blog\Factory\WriteControllerFactory',
 		'Zend\Db\Adapter\Adapter'           => 'Zend\Db\Adapter\AdapterServiceFactory'
 		)
 	),
@@ -60,7 +61,17 @@ return array(
                     		'constraints' => array(
                     			'id' => '[1-9]\d*')
                     	)
-                    )     
+                    ),
+                    'add' => array(
+                    	'type' => 'literal',
+                    	'options' => array(
+                    		'route' => '/add',
+                    		'defaults' => array(
+                    			'controller' => 'Blog\Controller\Write',
+                    			'action' => 'add'
+                    		)
+                    	)
+                    )    
 	            )
 	        )
 	    )

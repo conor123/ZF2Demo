@@ -6,15 +6,25 @@ use Blog\Model\PostInterface;
 
 interface PostMapperInterface
 {
- /**
-  * @param int|string $id
-  * @return PostInterface
-  * @throws \InvalidArgumentException
-  */
- public function find($id);
+	/**
+	* @param int|string $id
+	* @return PostInterface
+	* @throws \InvalidArgumentException
+	*/
+	public function find($id);
 
- /**
-  * @return array|PostInterface[]
-  */
- public function findAll();
+	/**
+	* @return array|PostInterface[]
+	*/
+	public function findAll();
+
+	/**
+	* @param PostInterface $postObject
+	*
+	* @param PostInterface $postObject
+	* @return PostInterface
+	* @throws \Exception
+	*/
+	public function save(PostInterface $postObject);
+
 }
